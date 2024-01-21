@@ -7,15 +7,15 @@
     <a type="button" href="{{ path('app_homepage', {
         year: year,
         month: month,
-        month_change: 'last'
+        monthChange: 'last'
     }) }}" class="btn btn-primary">Last month</a>
     Shown: <strong>{{ monthName }}.{{ year }}</strong>.
     <a type="button" href="{{ path('app_homepage', {
         year: year,
         month: month,
-        month_change: 'next'
+        monthChange: 'next'
       }) }}"class="btn btn-success">Next month</a>
-    <a type="button" href="/" class="btn btn-primary">Current month</a>
+    <a type="button" href="{{ path('app_homepage') }}" class="btn btn-secondary">Current month</a>
 </div>
 <div id="calendar_container">
   <table id="calendar">
