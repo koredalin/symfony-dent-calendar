@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1>{{ title }}</h1>
+{# TODO: add an image of the record #}
+<div>
+  <a type="button" href="/?year={{ year }}&month={{ month }}&month_change=last">Last month</a>
+  <a type="button" href="/?year={{ year }}&month={{ month }}&month_change=next">Next month</a>
+</div>
+<div id="calendar_container">
+  {{ monthName }}.{{ year }}
+  <table id="calendar">
+    <thead>
+      <tr>
+        <th>Hour</td>
+        {% for day in days %}
+            <th>
+              {{ day.day }}.{{ day.month }} - {{ day.week_day }}
+            </th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+        {% for hour in hours %}
+            <tr>
+                <td>
+                  {{ hour }} - {{ hour + 1 }}
+                </td>
+                {% for day in days %}
+                    <td>
+                      {{ day.week_day }}
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
