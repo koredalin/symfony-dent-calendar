@@ -19,22 +19,23 @@ class HomeController extends AbstractController
     protected const START_YEAR = 2023;
     protected const END_YEAR = 2030;
 
-    #[Route('/')]
+    #[Route('/{month<\d+>}/{year<\d+>}/{month_change}', name: 'app_homepage', methods: ['GET'])]
     public function homepage(?int $year = null, ?int $month = null, string $month_change = ''): Response
     {
+        $errorMessage = '';
         $monthChanges = ['last', 'next',];
         var_dump($year);
         if (
             $year < self::START_YEAR
-//            || $year > self::END_YEAR
-//            || $month < 1
-//            || $month > 12
-//            || !in_array($month_change, $monthChanges, true)
+            || $year > self::END_YEAR
+            || $month < 1
+            || $month > 12
+            || !in_array($month_change, $monthChanges, true)
         ) {
-            var_dump(__LINE__);
             $year = date('Y');
             $month = date('m');
             $month_change = '';
+            $errorMessage = 'Wrong month parameters. Set to current month.';
         }
 
         $monthName = date_create($year.'-'.$month.'-01')->format('M');
@@ -53,17 +54,15 @@ class HomeController extends AbstractController
             $month = $dt->format('m'); //2011-02
             $monthName = $dt->format('M');
         }
-        var_dump($month);
-        var_dump($monthName);
-        var_dump($year);
         
         return $this->render('home/homepage.html.twig', [
             'title' => 'Dentist Calendar',
             'year' => $year,
             'month' => $month,
             'monthName' => $monthName,
-            'days' => $this->getDaysInYearMonth(2024, 2),
+            'days' => $this->getDaysInYearMonth($year, $month),
             'hours' => self::HOURS,
+            'errorMessage' => $errorMessage,
         ]);
     }
     
