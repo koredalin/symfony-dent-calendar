@@ -4,11 +4,20 @@
 <h1>{{ title }}</h1>
 {# TODO: add an image of the record #}
 <div>
-  <a type="button" href="/{{ month }}/{{ year }}/last">Last month</a>
-  <a type="button" href="/{{ month }}/{{ year }}/next">Next month</a>
+    <a type="button" href="{{ path('app_homepage', {
+        year: year,
+        month: month,
+        month_change: 'last'
+    }) }}" class="btn btn-primary">Last month</a>
+    Shown: <strong>{{ monthName }}.{{ year }}</strong>.
+    <a type="button" href="{{ path('app_homepage', {
+        year: year,
+        month: month,
+        month_change: 'next'
+      }) }}"class="btn btn-success">Next month</a>
+    <a type="button" href="/" class="btn btn-primary">Current month</a>
 </div>
 <div id="calendar_container">
-  {{ monthName }}.{{ year }}
   <table id="calendar">
     <thead>
       <tr>
@@ -23,7 +32,7 @@
     <tbody>
         {% for hour in hours %}
             <tr>
-                <td>
+                <td class="calendar-hour">
                   {{ hour }} - {{ hour + 1 }}
                 </td>
                 {% for day in days %}

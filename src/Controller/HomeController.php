@@ -24,7 +24,6 @@ class HomeController extends AbstractController
     {
         $errorMessage = '';
         $monthChanges = ['last', 'next',];
-        var_dump($year);
         if (
             $year < self::START_YEAR
             || $year > self::END_YEAR

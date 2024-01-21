@@ -1,5 +1,7 @@
-
-
 .hidden {
     display: none;
+}
+
+table {
+    background-color: lightblue;
 }
