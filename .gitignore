@@ -12,7 +12,7 @@ composer.lock
 package-lock.json
 page
 ###< symfony/framework-bundle ###
-/nbproject/private/
+/nbproject/
 
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
