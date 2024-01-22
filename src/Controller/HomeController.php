@@ -15,8 +15,32 @@ use App\Helper\DateTimeHelper;
  */
 class HomeController extends AbstractController
 {
-    protected const HOURS = [9, 10, 11, 12, 13, 14, 15, 16, 17,];
-    
+    protected const RESERVATIONS = [
+        '01-2024' => [
+            '12-01-2024' => [
+                9 => ['id' => 22],
+                12 => ['id' => 33],
+                15 => ['id' => 43],
+            ],
+            '15-01-2024' => [
+                11 => ['id' => 25],
+                12 => ['id' => 37],
+                16 => ['id' => 48],
+            ],
+        ],
+        '02-2024' => [
+            '13-01-2024' => [
+                9 => ['id' => 122],
+                12 => ['id' => 133],
+                15 => ['id' => 143],
+            ],
+            '17-01-2024' => [
+                11 => ['id' => 125],
+                12 => ['id' => 137],
+                16 => ['id' => 148],
+            ],
+        ],
+    ];
     public function __construct(
         private HomeModel $home,
         private DateTimeHelper $dateTime
@@ -25,38 +49,6 @@ class HomeController extends AbstractController
     #[Route('/{month<\d+>}/{year<\d+>}/{monthChange}', name: 'app_homepage', methods: ['GET'])]
     public function index(?int $year = null, ?int $month = null, string $monthChange = ''): Response
     {
-//        $errorMessage = '';
-//        $monthChanges = ['last', 'next',];
-//        if (
-//            $year < self::START_YEAR
-//            || $year > self::END_YEAR
-//            || $month < 1
-//            || $month > 12
-//            || !in_array($monthChange, $monthChanges, true)
-//        ) {
-//            $year = date('Y');
-//            $month = date('m');
-//            $monthChange = '';
-//            $errorMessage = 'Wrong month parameters. Set to current month.';
-//        }
-//
-//        $monthName = date_create($year.'-'.$month.'-01')->format('M');
-//        if ($monthChange === 'last') {
-//            $datestring=$year.'-'.$month.'-01 first day of last month';
-//            $dt=date_create($datestring);
-//            $year = $dt->format('Y');
-//            $month = $dt->format('m');
-//            $monthName = $dt->format('M');
-//        }
-//
-//        if ($monthChange === 'next') {
-//            $datestring=$year.'-'.$month.'-01 first day of next month';
-//            $dt=date_create($datestring);
-//            $year = $dt->format('Y');
-//            $month = $dt->format('m');
-//            $monthName = $dt->format('M');
-//        }
-        
         $validatedInput = $this->home->getValidatedCalendarInput($year , $month, $monthChange);
         
         return $this->render('home/homepage.html.twig', [
@@ -65,7 +57,7 @@ class HomeController extends AbstractController
             'month' => $validatedInput['month'],
             'monthName' => $validatedInput['monthName'],
             'days' => $this->dateTime->getDaysInYearMonth($year, $month),
-            'hours' => self::HOURS,
+            'hours' => HomeModel::HOURS,
             'errorMessage' => $validatedInput['errorMessage'],
         ]);
     }

@@ -19,16 +19,16 @@ class DateTimeHelper
 
           $datesArray = array();
           for($i=1; $i<=$date->format("t"); $i++){
-              $dateFormat = [];
-              $dateFormat['week_day'] = DateTime::createFromFormat("Y-n-d", "$year-$month-$i")->format('D');
-              if (in_array($dateFormat['week_day'], self::SKIP_WEEK_DAYS, true)) {
+//              $dateFormat = [];
+              $weekDay = DateTime::createFromFormat("Y-n-d", "$year-$month-$i")->format('D');
+              if (in_array($weekDay, self::SKIP_WEEK_DAYS, true)) {
                   continue;
               }
 
-              $dateFormat['year'] = DateTime::createFromFormat("Y-n-d", "$year-$month-$i")->format('Y');
-              $dateFormat['month'] = DateTime::createFromFormat("Y-n-d", "$year-$month-$i")->format('m');
-              $dateFormat['day'] = DateTime::createFromFormat("Y-n-d", "$year-$month-$i")->format('d');
-              $datesArray[] = $dateFormat;
+//              $dateFormat['year'] = DateTime::createFromFormat("Y-n-d", "$year-$month-$i")->format('Y');
+//              $dateFormat['month'] = DateTime::createFromFormat("Y-n-d", "$year-$month-$i")->format('m');
+//              $dateFormat['day'] = DateTime::createFromFormat("Y-n-d", "$year-$month-$i")->format('d');
+              $datesArray[] = DateTime::createFromFormat("Y-n-d", "$year-$month-$i");
           }
 
         return $datesArray;

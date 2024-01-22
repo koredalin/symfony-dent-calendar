@@ -24,7 +24,7 @@
         <th>Hour</td>
         {% for day in days %}
             <th>
-              {{ day.day }}.{{ day.month }} - {{ day.week_day }}
+              {{ day|date('d') }}.{{ day|date('m') }} - {{ day|date('D') }}
             </th>
         {% endfor %}
       </tr>
@@ -37,7 +37,15 @@
                 </td>
                 {% for day in days %}
                     <td>
-                      <button"><i class="fas fa-save"></i></button> <button"><i class="fas fa-eye"></i></button>
+                        <i class="fas fa-stop-circle"></i>
+                        <a href="#" class="fas fa-edit"></a>
+                        <div class="hours" {{ stimulus_controller('calendar-controls', {
+                            infoUrl: path('api_songs_get_one', { id: loop.index })
+                        }) }}>
+                            <a href="#" {{ stimulus_action('calendar-controls', 'reserve') }}>
+                                <i class="fas fa-eye"></i>
+                            </a>
+                        </div>
                     </td>
                 {% endfor %}
             </tr>
