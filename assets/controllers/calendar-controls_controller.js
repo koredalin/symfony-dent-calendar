@@ -1,5 +1,4 @@
 import { Controller } from '@hotwired/stimulus';
-
 import axios from 'axios';
 
 /*
@@ -20,12 +19,13 @@ export default class extends Controller {
         event.preventDefault();
         axios.get(this.infoUrlValue)
             .then((response) => {
-                const audio = new Audio(response.data.url);
-                audio.play();
+//                const audio = new Audio(response.data.url);
+//                audio.play();
+                console.log(response.data);
             });
     }
     
-    connect() {
-        this.element.textContent = 'Hello Stimulus! Edit me in assets/controllers/hello_controller.js';
-    }
+//    connect() {
+//        this.element.textContent = 'Hello Stimulus! Edit me in assets/controllers/hello_controller.js';
+//    }
 }

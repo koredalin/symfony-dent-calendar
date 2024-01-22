@@ -13,8 +13,13 @@ class DateTimeHelper
 {
     protected const SKIP_WEEK_DAYS = ['Sat', 'Sun',];
 
-    public function getDaysInYearMonth(int $year, int $month): array
+    public function getDaysInYearMonth(?int $year, ?int $month): array
     {
+        if (empty($year) || empty($month)) {
+            $year = date('Y');
+            $month = date('n');
+        }
+
         $date = DateTime::createFromFormat("Y-n", "$year-$month");
 
           $datesArray = array();

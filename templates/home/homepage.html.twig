@@ -30,22 +30,34 @@
       </tr>
     </thead>
     <tbody>
-        {% for hour in hours %}
+        {% for hour in reservationHours %}
             <tr>
                 <td class="calendar-hour">
                   {{ hour }} - {{ hour + 1 }}
                 </td>
+{#                {% set reservationMonthKeyString = {month}{year}, %}#}
+{#                {% set reservationMonthKey = reservations["#{month}-#{year}"] %}#}
                 {% for day in days %}
+{#                    {{ day|date('d-m-Y') }}#}
+                    {% set dateKey = day|date('d-m-Y') %}
+                    {% set isReservation = (reservations["#{month}-#{year}"][dateKey][hour] is defined) %}
+{#                    {% set isReservation = true %}#}
                     <td>
-                        <i class="fas fa-stop-circle"></i>
-                        <a href="#" class="fas fa-edit"></a>
-                        <div class="hours" {{ stimulus_controller('calendar-controls', {
-                            infoUrl: path('api_songs_get_one', { id: loop.index })
-                        }) }}>
-                            <a href="#" {{ stimulus_action('calendar-controls', 'reserve') }}>
-                                <i class="fas fa-eye"></i>
-                            </a>
-                        </div>
+                        {% if isReservation %}
+                            <i class="fas fa-stop-circle"></i>
+                        {% endif %}
+                        {% if not isReservation %}
+                            <a href="#" class="fas fa-edit"></a>
+                        {% endif %}
+                        {% if isReservation %}
+                            <div class="hours" {{ stimulus_controller('calendar-controls', {
+                                infoUrl: path('api_reservations_get_one', { id: 3 })
+                            }) }}>
+                                <a href="#" {{ stimulus_action('calendar-controls', 'reserve') }}>
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        {% endif %}
                     </td>
                 {% endfor %}
             </tr>
