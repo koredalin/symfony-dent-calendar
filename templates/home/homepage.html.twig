@@ -39,9 +39,9 @@
 {#                {% set reservationMonthKey = reservations["#{month}-#{year}"] %}#}
                 {% for day in days %}
 {#                    {{ day|date('d-m-Y') }}#}
-                    {% set dateKey = day|date('d-m-Y') %}
-                    {% set isReservation = (reservations["#{month}-#{year}"][dateKey][hour] is defined) %}
-{#                    {% set isReservation = true %}#}
+                    {% set dateKey = day|date('Y-m-d') %}
+{#                    {% set isReservation = (reservations["#{month}-#{year}"][dateKey][hour] is defined) %}#}
+                    {% set isReservation = (reservations[dateKey] is defined) and (hour in reservations[dateKey]) %}
                     <td>
                         {% if isReservation %}
                             <i class="fas fa-stop-circle"></i>

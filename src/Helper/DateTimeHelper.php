@@ -22,19 +22,15 @@ class DateTimeHelper
 
         $date = DateTime::createFromFormat("Y-n", "$year-$month");
 
-          $datesArray = array();
-          for($i=1; $i<=$date->format("t"); $i++){
-//              $dateFormat = [];
-              $weekDay = DateTime::createFromFormat("Y-n-d", "$year-$month-$i")->format('D');
-              if (in_array($weekDay, self::SKIP_WEEK_DAYS, true)) {
-                  continue;
-              }
+        $datesArray = array();
+        for($i=1; $i<=$date->format("t"); $i++){
+            $weekDay = DateTime::createFromFormat("Y-n-d", "$year-$month-$i")->format('D');
+            if (in_array($weekDay, self::SKIP_WEEK_DAYS, true)) {
+                continue;
+            }
 
-//              $dateFormat['year'] = DateTime::createFromFormat("Y-n-d", "$year-$month-$i")->format('Y');
-//              $dateFormat['month'] = DateTime::createFromFormat("Y-n-d", "$year-$month-$i")->format('m');
-//              $dateFormat['day'] = DateTime::createFromFormat("Y-n-d", "$year-$month-$i")->format('d');
-              $datesArray[] = DateTime::createFromFormat("Y-n-d", "$year-$month-$i");
-          }
+            $datesArray[] = DateTime::createFromFormat("Y-m-d", "$year-$month-$i");
+        }
 
         return $datesArray;
     }
