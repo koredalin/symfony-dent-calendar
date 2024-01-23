@@ -4,22 +4,34 @@ namespace App\Controller;
 
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Doctrine\ORM\EntityManagerInterface;
+//use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Model\ReservationModel;
+//use App\Model\ReservationModel;
 
 class ReservationController extends AbstractController
 {
     protected const IDS = [3,];
+    
+    public function __construct(
+        private LoggerInterface $logger,
+        private EntityManagerInterface $entityManager
+    ) {}
 
 
-    #[Route('/api/reservations/{id<\d+>}', methods: ['GET'], name: 'api_reservations_get_one')]
-    public function getSong(int $id, LoggerInterface $logger): Response
+    #[Route('/reservations/add')]
+    public function add(): Response
+    {
+        return new Response('Title: "User Add."');
+    }
+
+    #[Route('/api/reservation/{id<\d+>}', methods: ['GET'], name: 'api_reservation_get_one')]
+    public function getOne(int $id): Response
     {
         // TODO if no found record.
         if (!in_array($id, self::IDS)) {
-            $logger->warning('Reserved reservation not found. Id: {reservation}.', [
+            $this->logger->warning('Reserved reservation not found. Id: {reservation}.', [
                 'reservation' => $id,
             ]);
             

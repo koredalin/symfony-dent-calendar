@@ -2,19 +2,19 @@
 
 namespace App\Entity;
 
-use App\Repository\RegistrationRepository;
+use App\Repository\ReservationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\UX\Turbo\Attribute\Broadcast;
 
-#[ORM\Entity(repositoryClass: RegistrationRepository::class)]
+#[ORM\Entity(repositoryClass: ReservationRepository::class)]
 #[Broadcast]
-class Registration
+class Reservation
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private int $id;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date = null;

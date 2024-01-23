@@ -51,7 +51,7 @@
                         {% endif %}
                         {% if isReservation %}
                             <div class="hours" {{ stimulus_controller('calendar-controls', {
-                                infoUrl: path('api_reservations_get_one', { id: 3 })
+                                infoUrl: path('api_reservation_get_one', { id: 3 })
                             }) }}>
                                 <a href="#" {{ stimulus_action('calendar-controls', 'reserve') }}>
                                     <i class="fas fa-eye"></i>

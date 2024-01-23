@@ -11,10 +11,14 @@ use Symfony\UX\Turbo\Attribute\Broadcast;
 #[Broadcast]
 class User
 {
+    public const TYPE_CLIENT = 1;
+    public const TYPE_DOCTOR = 2;
+    public const TYPE_ASSISTANT = 3;
+    
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private int $id;
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
@@ -25,7 +29,7 @@ class User
     #[ORM\Column(length: 20)]
     private ?string $phone = null;
 
-    #[ORM\Column(type: Types::SMALLINT)]
+    #[ORM\Column(type: Types::SMALLINT, nullable: true)]
     private ?int $type = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
