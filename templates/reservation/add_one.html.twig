@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+<h1>{{ title }} ✅</h1>
+
+<div class="form-container">
+  <p>{{ date|date('Y-m-d H:i:s') }}</p>
+  {{ form(form) }}
+</div>
+{% endblock %}
