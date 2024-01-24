@@ -34,8 +34,8 @@ class ReservationController extends AbstractController
     #[Route('/reservation/add_one/{year<\d+>}/{month<\d+>}/{day<\d+>}/{hour<\d+>}', name: 'app_reservation_add_one')]
     public function addOne(int $year, int $month, int $day, int $hour): Response
     {
-//        dd(__LINE__);
         $startAt = \DateTime::createFromFormat('Y-n-d H:i:s', $year.'-'.$month.'-'.$day.' '.$hour.':00:00');
+//        $startAt = \DateTime::createFromFormat('Y-n-d H:i:s', $year.'-5-'.$day.' '.$hour.':00:00');
         // creates a task object and initializes some data for this example
         $formEntity = new ReservationForm();
         dump($startAt->format('Y-m-d H:i:s'));
@@ -61,12 +61,17 @@ class ReservationController extends AbstractController
 
             // actually executes the queries (i.e. the INSERT query)
             $this->entityManager->flush();
-dump($reservationInput);
-dump($userObj);
+            
+            $reservationEntity = $this->entityManager->getRepository(Reservation::class)->findBy(['date' => $date]);
+            if (isset($reservationEntity[0]) && $reservationEntity[0] instanceof Reservation) {
+                $reservationObj = $reservationEntity[0];
+            } else {
+                $reservationObj = new Reservation();
+                $reservationObj->setDate($date);
+            }
+
             $startAtHour = (int) $startAt->format('H');
             $startAtMethod = 'setStartAt' . $startAtHour;
-            $reservationObj = new Reservation();
-            $reservationObj->setDate($date);
             $reservationObj->$startAtMethod($userObj->getId());
 
             // tell Doctrine you want to (eventually) save the Product (no queries yet)
@@ -75,6 +80,10 @@ dump($userObj);
             // actually executes the queries (i.e. the INSERT query)
             $this->entityManager->flush();
             
+dump($userObj);
+            dump($reservationEntity);
+dump($reservationInput);
+//dd(5);
 dd($reservationObj);
 
             return $this->redirectToRoute('app_reservation_add_one_success', ['reservation' => $userObj]);

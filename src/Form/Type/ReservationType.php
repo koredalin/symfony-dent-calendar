@@ -24,9 +24,6 @@ class ReservationType extends AbstractType
             ->add('name', TextType::class)
             ->add('email', EmailType::class)
             ->add('phone', TextType::class)
-            ->add('startAt', DateTimeType::class, [
-                'row_attr' => ['class' => 'hidden'],
-            ])
             ->add('save', SubmitType::class, ['label' => 'Reserve an Hour'])
             ->getForm();
     }
