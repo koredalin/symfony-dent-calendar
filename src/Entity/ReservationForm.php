@@ -23,13 +23,6 @@ class ReservationForm
     
     #[Assert\NotBlank]
     protected string $phone;
-
-    /**
-     * @var string A "Y-m-d H:i:s" formatted value
-     */
-//    #[Assert\NotBlank]
-    #[Assert\Type(DateTimeInterface::class)]
-    protected ?DateTimeInterface $startAt;
     
 
     public function get(): string
@@ -65,15 +58,5 @@ class ReservationForm
     public function getPhone(): string
     {
         return $this->phone;
-    }
-
-    public function setStartAt(?DateTimeInterface $startAt): void
-    {
-        $this->startAt = $startAt;
-    }
-
-    public function getStartAt(): ?DateTimeInterface
-    {
-        return $this->startAt;
     }
 }

@@ -16,7 +16,7 @@ class Reservation
     #[ORM\Column]
     private int $id;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATE_MUTABLE, unique: true)]
     private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(nullable: true)]
@@ -45,12 +45,6 @@ class Reservation
 
     #[ORM\Column(nullable: true)]
     private ?int $start_at_17 = null;
-
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $created_at = null;
-
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $updated_at = null;
 
     public function getId(): ?int
     {
@@ -173,30 +167,6 @@ class Reservation
     public function setStartAt17(?int $start_at_17): static
     {
         $this->start_at_17 = $start_at_17;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->created_at;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $created_at): static
-    {
-        $this->created_at = $created_at;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updated_at;
-    }
-
-    public function setUpdatedAt(\DateTimeInterface $updated_at): static
-    {
-        $this->updated_at = $updated_at;
 
         return $this;
     }

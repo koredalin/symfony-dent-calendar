@@ -33,23 +33,14 @@ class ReservationController extends AbstractController
 
     #[Route('/reservation/add_one/{year<\d+>}/{month<\d+>}/{day<\d+>}/{hour<\d+>}', name: 'app_reservation_add_one')]
     public function addOne(int $year, int $month, int $day, int $hour): Response
-//    public function new(Request $request)
     {
 //        dd(__LINE__);
-//        $year = 2024;
-//        $month = 01;
-//        $day = 13;
-//        $hour = 14;
-        $date = \DateTime::createFromFormat('Y-n-d H:i:s', $year.'-'.$month.'-'.$day.' '.$hour.':00:00');
+        $startAt = \DateTime::createFromFormat('Y-n-d H:i:s', $year.'-'.$month.'-'.$day.' '.$hour.':00:00');
         // creates a task object and initializes some data for this example
         $formEntity = new ReservationForm();
-//        $formEntity->setName('Full Name.');
-//        $formEntity->setEmail('Email.');
-//        $formEntity->setPhone('Phone Number.');
-        dump($date->format('Y-m-d H:i:s'));
-        $startAt = new \DateTimeImmutable($date->format('Y-m-d H:i:s'));
-        dump($startAt);
-        $formEntity->setStartAt($startAt);
+        dump($startAt->format('Y-m-d H:i:s'));
+        $date = new \DateTimeImmutable($startAt->format('Y-m-d'));
+        dump($date);
 
         $form = $this->createForm(ReservationType::class, $formEntity);
 
@@ -64,8 +55,6 @@ class ReservationController extends AbstractController
             $userObj->setName($reservationInput->getName());
             $userObj->setEmail($reservationInput->getEmail());
             $userObj->setPhone($reservationInput->getPhone());
-            $userObj->setCreatedAt(new \DateTime());
-            $userObj->setUpdatedAt(new \DateTime());
 
             // tell Doctrine you want to (eventually) save the Product (no queries yet)
             $this->entityManager->persist($userObj);
@@ -74,13 +63,11 @@ class ReservationController extends AbstractController
             $this->entityManager->flush();
 dump($reservationInput);
 dump($userObj);
-$startAtHour = (int) $date->format('H');
-$startAtMethod = 'setStartAt' . $startAtHour;
+            $startAtHour = (int) $startAt->format('H');
+            $startAtMethod = 'setStartAt' . $startAtHour;
             $reservationObj = new Reservation();
-            $reservationObj->setDate($startAt);
+            $reservationObj->setDate($date);
             $reservationObj->$startAtMethod($userObj->getId());
-            $reservationObj->setCreatedAt(new \DateTime());
-            $reservationObj->setUpdatedAt(new \DateTime());
 
             // tell Doctrine you want to (eventually) save the Product (no queries yet)
             $this->entityManager->persist($reservationObj);
@@ -95,7 +82,7 @@ dd($reservationObj);
 
         return $this->render('reservation/add_one.html.twig', [
             'title'=>'Reserve an hour',
-            'date'=>$date,
+            'date'=>$startAt,
             'form'=>$form,
         ]);
     }
