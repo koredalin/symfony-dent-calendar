@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\DateTime;
 use DateTimeInterface;
 
 /**
@@ -17,15 +18,18 @@ class ReservationForm
     protected string $name;
     
     #[Assert\NotBlank]
-    protected string $email;
+    #[Assert\Email()]
+    protected ?string $email;
     
     #[Assert\NotBlank]
-    #[Assert\Type(Email::class)]
     protected string $phone;
 
-    #[Assert\NotBlank]
+    /**
+     * @var string A "Y-m-d H:i:s" formatted value
+     */
+//    #[Assert\NotBlank]
     #[Assert\Type(DateTimeInterface::class)]
-    protected DateTimeInterface $start;
+    protected ?DateTimeInterface $startAt;
     
 
     public function get(): string
@@ -43,12 +47,12 @@ class ReservationForm
         return $this->name;
     }
 
-    public function setEmail(string $email): void
+    public function setEmail(?string $email): void
     {
         $this->email = $email;
     }
 
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
@@ -63,13 +67,13 @@ class ReservationForm
         return $this->phone;
     }
 
-    public function getStart(): DateTimeInterface
+    public function setStartAt(?DateTimeInterface $startAt): void
     {
-        return $this->start;
+        $this->startAt = $startAt;
     }
 
-    public function setStart(DateTimeInterface $dueDate): void
+    public function getStartAt(): ?DateTimeInterface
     {
-        $this->start = $dueDate;
+        return $this->startAt;
     }
 }

@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use App\Entity\ReservationForm;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,6 +24,9 @@ class ReservationType extends AbstractType
             ->add('name', TextType::class)
             ->add('email', EmailType::class)
             ->add('phone', TextType::class)
+            ->add('startAt', DateTimeType::class, [
+                'row_attr' => ['class' => 'hidden'],
+            ])
             ->add('save', SubmitType::class, ['label' => 'Reserve an Hour'])
             ->getForm();
     }
