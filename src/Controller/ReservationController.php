@@ -70,9 +70,9 @@ class ReservationController extends AbstractController
                 $reservationObj->setDate($date);
             }
 
-            $startAtHour = (int) $startAt->format('H');
-            $startAtMethod = 'setStartAt' . $startAtHour;
-            $reservationObj->$startAtMethod($userObj->getId());
+            $userAtHour = (int) $startAt->format('H');
+            $userAtMethod = Reservation::SET_USER_METHOD_NAME_BASE . $userAtHour;
+            $reservationObj->$userAtMethod($userObj->getId());
 
             // tell Doctrine you want to (eventually) save the Product (no queries yet)
             $this->entityManager->persist($reservationObj);

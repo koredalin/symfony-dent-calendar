@@ -6,11 +6,15 @@ use App\Repository\ReservationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\UX\Turbo\Attribute\Broadcast;
+use App\Entity\User;
 
 #[ORM\Entity(repositoryClass: ReservationRepository::class)]
 #[Broadcast]
 class Reservation
 {
+    public const GET_USER_PROPERTY_NAME_BASE = 'userAt';
+    public const SET_USER_METHOD_NAME_BASE = 'setUserAt';
+    
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -19,32 +23,41 @@ class Reservation
     #[ORM\Column(type: Types::DATE_MUTABLE, unique: true)]
     private ?\DateTimeInterface $date = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $start_at_9 = null;
+    #[ORM\ManyToOne(targetEntity: "User")]
+    #[ORM\JoinColumn(name: "user_id_at_9", nullable: true, referencedColumnName: "id")]
+    private ?User $userAt9 = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $start_at_10 = null;
+    #[ORM\ManyToOne(targetEntity: "User")]
+    #[ORM\JoinColumn(name: "user_id_at_10", nullable: true, referencedColumnName: "id")]
+    private ?User $userAt10 = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $start_at_11 = null;
+    #[ORM\ManyToOne(targetEntity: "User")]
+    #[ORM\JoinColumn(name: "user_id_at_11", nullable: true, referencedColumnName: "id")]
+    private ?User $userAt11 = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $start_at_12 = null;
+    #[ORM\ManyToOne(targetEntity: "User")]
+    #[ORM\JoinColumn(name: "user_id_at_12", nullable: true, referencedColumnName: "id")]
+    private ?User $userAt12 = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $start_at_13 = null;
+    #[ORM\ManyToOne(targetEntity: "User")]
+    #[ORM\JoinColumn(name: "user_id_at_13", nullable: true, referencedColumnName: "id")]
+    private ?User $userAt13 = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $start_at_14 = null;
+    #[ORM\ManyToOne(targetEntity: "User")]
+    #[ORM\JoinColumn(name: "user_id_at_14", nullable: true, referencedColumnName: "id")]
+    private ?User $userAt14 = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $start_at_15 = null;
+    #[ORM\ManyToOne(targetEntity: "User")]
+    #[ORM\JoinColumn(name: "user_id_at_15", nullable: true, referencedColumnName: "id")]
+    private ?User $userAt15 = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $start_at_16 = null;
+    #[ORM\ManyToOne(targetEntity: "User")]
+    #[ORM\JoinColumn(name: "user_id_at_16", nullable: true, referencedColumnName: "id")]
+    private ?User $userAt16 = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $start_at_17 = null;
+    #[ORM\ManyToOne(targetEntity: "User")]
+    #[ORM\JoinColumn(name: "user_id_at_17", nullable: true, referencedColumnName: "id")]
+    private ?User $userAt17 = null;
 
     public function getId(): ?int
     {
@@ -63,110 +76,110 @@ class Reservation
         return $this;
     }
 
-    public function getStartAt9(): ?int
+    public function getUserAt9(): ?User
     {
-        return $this->start_at_9;
+        return $this->userAt9;
     }
 
-    public function setStartAt9(?int $start_at_9): static
+    public function setUserAt9(?int $userAt9): static
     {
-        $this->start_at_9 = $start_at_9;
+        $this->userAt9 = $userAt9;
 
         return $this;
     }
 
-    public function getStartAt10(): ?int
+    public function getUserAt10(): ?User
     {
-        return $this->start_at_10;
+        return $this->userAt10;
     }
 
-    public function setStartAt10(?int $start_at_10): static
+    public function setUserAt10(?int $userAt10): static
     {
-        $this->start_at_10 = $start_at_10;
+        $this->userAt10 = $userAt10;
 
         return $this;
     }
 
-    public function getStartAt11(): ?int
+    public function getUserAt11(): ?User
     {
-        return $this->start_at_11;
+        return $this->userAt11;
     }
 
-    public function setStartAt11(?int $start_at_11): static
+    public function setUserAt11(?int $userAt11): static
     {
-        $this->start_at_11 = $start_at_11;
+        $this->userAt11 = $userAt11;
 
         return $this;
     }
 
-    public function getStartAt12(): ?int
+    public function getUserAt12(): ?User
     {
-        return $this->start_at_12;
+        return $this->userAt12;
     }
 
-    public function setStartAt12(?int $start_at_12): static
+    public function setUserAt12(?int $userAt12): static
     {
-        $this->start_at_12 = $start_at_12;
+        $this->userAt12 = $userAt12;
 
         return $this;
     }
 
-    public function getStartAt13(): ?int
+    public function getUserAt13(): ?User
     {
-        return $this->start_at_13;
+        return $this->userAt13;
     }
 
-    public function setStartAt13(?int $start_at_13): static
+    public function setUserAt13(?int $userAt13): static
     {
-        $this->start_at_13 = $start_at_13;
+        $this->userAt13 = $userAt13;
 
         return $this;
     }
 
-    public function getStartAt14(): ?int
+    public function getUserAt14(): ?User
     {
-        return $this->start_at_14;
+        return $this->userAt14;
     }
 
-    public function setStartAt14(?int $start_at_14): static
+    public function setUserAt14(?int $userAt14): static
     {
-        $this->start_at_14 = $start_at_14;
+        $this->userAt14 = $userAt14;
 
         return $this;
     }
 
-    public function getStartAt15(): ?int
+    public function getUserAt15(): ?User
     {
-        return $this->start_at_15;
+        return $this->userAt15;
     }
 
-    public function setStartAt15(?int $start_at_15): static
+    public function setUserAt15(?int $userAt15): static
     {
-        $this->start_at_15 = $start_at_15;
+        $this->userAt15 = $userAt15;
 
         return $this;
     }
 
-    public function getStartAt16(): ?int
+    public function getUserAt16(): ?User
     {
-        return $this->start_at_16;
+        return $this->userAt16;
     }
 
-    public function setStartAt16(?int $start_at_16): static
+    public function setUserAt16(?int $userAt16): static
     {
-        $this->start_at_16 = $start_at_16;
+        $this->userAt16 = $userAt16;
 
         return $this;
     }
 
-    public function getStartAt17(): ?int
+    public function getUserAt17(): ?User
     {
-        return $this->start_at_17;
+        return $this->userAt17;
     }
 
-    public function setStartAt17(?int $start_at_17): static
+    public function setUserAt17(?int $userAt17): static
     {
-        $this->start_at_17 = $start_at_17;
+        $this->userAt17 = $userAt17;
 
         return $this;
     }

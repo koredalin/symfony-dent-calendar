@@ -49,7 +49,7 @@ class HomeController extends AbstractController
             $reservationHours = [];
             foreach ($date as $dateKey => $dateField) {
                 foreach (HomeModel::RESERVATION_HOURS as $hour) {
-                    if ($dateKey === 'start_at_'.$hour && $dateField !== null) {
+                    if ($dateKey === Reservation::GET_USER_PROPERTY_NAME_BASE.$hour && $dateField !== null) {
                         $reservationHours[] = $hour;
                     }
                 }
