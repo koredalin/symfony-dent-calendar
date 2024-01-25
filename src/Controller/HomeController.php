@@ -44,12 +44,13 @@ class HomeController extends AbstractController
     private function getMonthlyReservationHours(int $year, int $month): array
     {
         $reservationDates = $this->entityManager->getRepository(Reservation::class)->findByMonthAssoc($year, $month);
+        dump($reservationDates);
         $result = [];
         foreach ($reservationDates as $date) {
             $reservationHours = [];
             foreach ($date as $dateKey => $dateField) {
                 foreach (HomeModel::RESERVATION_HOURS as $hour) {
-                    if ($dateKey === Reservation::GET_USER_PROPERTY_NAME_BASE.$hour && $dateField !== null) {
+                    if ($dateKey === Reservation::USER_PROPERTY_BASE_STR.$hour && $dateField !== null) {
                         $reservationHours[] = $hour;
                     }
                 }

@@ -12,8 +12,9 @@ use App\Entity\User;
 #[Broadcast]
 class Reservation
 {
-    public const GET_USER_PROPERTY_NAME_BASE = 'userAt';
-    public const SET_USER_METHOD_NAME_BASE = 'setUserAt';
+    public const USER_COLUMN_BASE_STR = 'user_id_at_';
+    public const USER_PROPERTY_BASE_STR = 'userAt';
+    public const SET_USER_METHOD_BASE_STR = 'setUserAt';
     
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -23,6 +24,7 @@ class Reservation
     #[ORM\Column(type: Types::DATE_MUTABLE, unique: true)]
     private ?\DateTimeInterface $date = null;
 
+//    #[ORM\ManyToOne(targetEntity: "User", inversedBy: "reservationsAt9")]
     #[ORM\ManyToOne(targetEntity: "User")]
     #[ORM\JoinColumn(name: "user_id_at_9", nullable: true, referencedColumnName: "id")]
     private ?User $userAt9 = null;
@@ -81,7 +83,7 @@ class Reservation
         return $this->userAt9;
     }
 
-    public function setUserAt9(?int $userAt9): static
+    public function setUserAt9(?User $userAt9): static
     {
         $this->userAt9 = $userAt9;
 
@@ -93,7 +95,7 @@ class Reservation
         return $this->userAt10;
     }
 
-    public function setUserAt10(?int $userAt10): static
+    public function setUserAt10(?User $userAt10): static
     {
         $this->userAt10 = $userAt10;
 
@@ -105,7 +107,7 @@ class Reservation
         return $this->userAt11;
     }
 
-    public function setUserAt11(?int $userAt11): static
+    public function setUserAt11(?User $userAt11): static
     {
         $this->userAt11 = $userAt11;
 
@@ -117,7 +119,7 @@ class Reservation
         return $this->userAt12;
     }
 
-    public function setUserAt12(?int $userAt12): static
+    public function setUserAt12(?User $userAt12): static
     {
         $this->userAt12 = $userAt12;
 
@@ -141,7 +143,7 @@ class Reservation
         return $this->userAt14;
     }
 
-    public function setUserAt14(?int $userAt14): static
+    public function setUserAt14(?User $userAt14): static
     {
         $this->userAt14 = $userAt14;
 
@@ -153,7 +155,7 @@ class Reservation
         return $this->userAt15;
     }
 
-    public function setUserAt15(?int $userAt15): static
+    public function setUserAt15(?User $userAt15): static
     {
         $this->userAt15 = $userAt15;
 
@@ -165,7 +167,7 @@ class Reservation
         return $this->userAt16;
     }
 
-    public function setUserAt16(?int $userAt16): static
+    public function setUserAt16(?User $userAt16): static
     {
         $this->userAt16 = $userAt16;
 
@@ -177,7 +179,7 @@ class Reservation
         return $this->userAt17;
     }
 
-    public function setUserAt17(?int $userAt17): static
+    public function setUserAt17(?User $userAt17): static
     {
         $this->userAt17 = $userAt17;
 

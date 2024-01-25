@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+<h1>{{ title }} ✅</h1>
+
+<div class="form-container">
+  <p>Your reservation begins at: {{ date|date('Y-m-d H:i:s') }}.</p>
+  <p>Your input data:</p>
+  <p>Name: {{ user.name }}.</p>
+  <p>Email: {{ user.email }}.</p>
+  <p>Phone number: {{ user.phone }}.</p>
+  <p><a type="button" href="{{ asset('') }}">Go back to Calendar</a></p>
+</div>
+{% endblock %}

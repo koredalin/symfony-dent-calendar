@@ -3,10 +3,10 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block body %}
-<h1>{{ title }} ✅</h1>
+<h1>{{ title }}</h1>
 
 <div class="form-container">
-  <p>{{ date|date('Y-m-d H:i:s') }}</p>
+  <p>Reservation for: {{ date|date('Y-m-d H:i:s') }}.</p>
   {{ form(form) }}
 </div>
 {% endblock %}

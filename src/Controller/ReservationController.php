@@ -34,19 +34,18 @@ class ReservationController extends AbstractController
     #[Route('/reservation/add_one/{year<\d+>}/{month<\d+>}/{day<\d+>}/{hour<\d+>}', name: 'app_reservation_add_one')]
     public function addOne(int $year, int $month, int $day, int $hour): Response
     {
-        $startAt = \DateTime::createFromFormat('Y-n-d H:i:s', $year.'-'.$month.'-'.$day.' '.$hour.':00:00');
+        $beginAt = \DateTime::createFromFormat('Y-n-d H:i:s', $year.'-'.$month.'-'.$day.' '.$hour.':00:00');
+        $beginAtStr = $beginAt->format('Y-m-d H:i:s');
 //        $startAt = \DateTime::createFromFormat('Y-n-d H:i:s', $year.'-5-'.$day.' '.$hour.':00:00');
         // creates a task object and initializes some data for this example
         $formEntity = new ReservationForm();
-        dump($startAt->format('Y-m-d H:i:s'));
-        $date = new \DateTimeImmutable($startAt->format('Y-m-d'));
+        $date = new \DateTimeImmutable($beginAt->format('Y-m-d'));
         dump($date);
 
         $form = $this->createForm(ReservationType::class, $formEntity);
 
         $form->handleRequest($this->request);
         if ($form->isSubmitted() && $form->isValid()) {
-//            dd(__LINE__);
             // $form->getData() holds the submitted values
             // but, the original `$task` variable has also been updated
             $reservationInput = $form->getData();
@@ -70,9 +69,9 @@ class ReservationController extends AbstractController
                 $reservationObj->setDate($date);
             }
 
-            $userAtHour = (int) $startAt->format('H');
-            $userAtMethod = Reservation::SET_USER_METHOD_NAME_BASE . $userAtHour;
-            $reservationObj->$userAtMethod($userObj->getId());
+            $userAtHour = (int) $beginAt->format('H');
+            $userAtMethod = Reservation::SET_USER_METHOD_BASE_STR . $userAtHour;
+            $reservationObj->$userAtMethod($userObj);
 
             // tell Doctrine you want to (eventually) save the Product (no queries yet)
             $this->entityManager->persist($reservationObj);
@@ -84,22 +83,28 @@ dump($userObj);
             dump($reservationEntity);
 dump($reservationInput);
 //dd(5);
-dd($reservationObj);
+dump($reservationObj);
 
-            return $this->redirectToRoute('app_reservation_add_one_success', ['reservation' => $userObj]);
+            return $this->redirectToRoute('app_reservation_add_one_success', ['userId' => $userObj->getId(), 'beginAt' => $beginAtStr]);
         }
 
         return $this->render('reservation/add_one.html.twig', [
             'title'=>'Reserve an hour',
-            'date'=>$startAt,
+            'date'=>$beginAt,
             'form'=>$form,
         ]);
     }
 
-    #[Route('/reservation/add_one_success/{id<\d+>}', name: 'app_reservation_add_one_success')]
-    public function addOneSuccess(Reservation $reservation): Response
+    #[Route('/reservation/add_one_success/{userId<\d+>}/{beginAt}', name: 'app_reservation_add_one_success')]
+    public function addOneSuccess(int $userId, string $beginAt): Response
     {
+        $userEntity = $this->entityManager->getRepository(User::class)->find($userId);
         
+        return $this->render('reservation/add_one_success.html.twig', [
+            'title'=>'Reserve an hour',
+            'user' => $userEntity,
+            'date'=>$beginAt,
+        ]);
     }
 
     #[Route('/api/reservation/{id<\d+>}', methods: ['GET'], name: 'api_reservation_get_one')]
