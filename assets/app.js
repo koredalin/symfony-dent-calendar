@@ -10,3 +10,4 @@ import './bootstrap.js';
 import './styles/app.css';
 
 import './calendar-styling.js';
+import './modal.js';

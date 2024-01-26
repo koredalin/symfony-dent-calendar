@@ -39,12 +39,13 @@
                 {% for day in days %}
 {#                    {{ day|date('d-m-Y') }}#}
                     {% set dateKey = day|date('Y-m-d') %}
+                    {% set hourTwoChars = "%02d"|format(hour) %}
+                    {% set resTimeSuffix = dateKey ~ '-' ~ hourTwoChars %}
                     {% set isReservation = false %}
                     {% set resHourIndex = null %}
                     {% if reservations[dateKey] is defined %}
                         {% for resKey, resHour in reservations[dateKey] %}
                             {% if resHour['hour'] is defined and (hour is same as(resHour['hour'])) %}
-{#                                {{ dump(reservations[dateKey]) }}#}
                                 {% set resHourIndex = resKey %}
                                 {% set isReservation = true %}
                                 {% set break = true %}
@@ -63,15 +64,14 @@
                             </a>
                         {% endif %}
                         {% if isReservation %}
-                            <div class="reservation_info" {{ stimulus_controller('calendar-controls', {
-                                infoUrl: path('api_reservation_get_one', { id: 3 })
-                            }) }}>
-                                <a href="#" {{ stimulus_action('calendar-controls', 'reserve') }}>
+                            <div class="reservation_info">
+                                <a href="#" id="res_info_link_{{ resTimeSuffix }}">
                                     <i class="fas fa-eye"></i>
                                 </a>
-                                <input type="hidden" id="res_name_{{ day|date('Y-m-d') }}-{{ "%02d"|format(hour) }}" value="{{ reservations[dateKey][resHourIndex]['userAtName'] }}">
-                                <input type="hidden" id="res_email_{{ day|date('Y-m-d') }}-{{ "%02d"|format(hour) }}" value="{{ reservations[dateKey][resHourIndex]['userAtEmail'] }}">
-                                <input type="hidden" id="res_phone_{{ day|date('Y-m-d') }}-{{ "%02d"|format(hour) }}" value="{{ reservations[dateKey][resHourIndex]['userAtPhone'] }}">
+                                {% set user = reservations[dateKey][resHourIndex] %}
+                                <input type="hidden" id="user_name_{{ resTimeSuffix }}" value="{{ user['userAtName'] }}">
+                                <input type="hidden" id="user_email_{{ resTimeSuffix }}" value="{{ user['userAtEmail'] }}">
+                                <input type="hidden" id="user_phone_{{ resTimeSuffix }}" value="{{ user['userAtPhone'] }}">
                             </div>
                         {% endif %}
                     </td>
@@ -80,5 +80,20 @@
         {% endfor %}
     </tbody>
   </table>
+  
+  <div class="modals">
+    <dialog class="dialog" id="modal-reservation">
+      <div class="dialog__wrapper">
+        <button class="dialog__close">✕</button>
+        <p>Reservation at <strong><span id="modal_res_time"></span></strong> o'clock.</p>
+        <p>Patient:</p>
+        <ul>
+          <li>Name: <strong><span id="modal_user_name"></span></strong></li>
+          <li>Email: <strong><span id="modal_user_email"></span></strong></li>
+          <li>Phone: <strong><span id="modal_user_phone"></span></strong></li>
+        </ul>
+      </div>
+    </dialog>
+  </div>
 </div>
 {% endblock %}
