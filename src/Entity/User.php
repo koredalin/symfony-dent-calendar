@@ -3,10 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\UX\Turbo\Attribute\Broadcast;
-use App\Entity\Reservation;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[Broadcast]
@@ -29,9 +27,7 @@ class User
 
     #[ORM\Column(length: 20)]
     private ?string $phone = null;
-    
-//    #[ORM\OneToMany(targetEntity: "Reservation", mappedBy: "user", cascade: ['all'])]
-//    private array $reservationsAt9 = [];
+
 
     public function getId(): ?int
     {

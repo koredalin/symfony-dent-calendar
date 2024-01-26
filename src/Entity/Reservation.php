@@ -12,9 +12,8 @@ use App\Entity\User;
 #[Broadcast]
 class Reservation
 {
-    public const USER_COLUMN_BASE_STR = 'user_id_at_';
-    public const USER_PROPERTY_BASE_STR = 'userAt';
     public const SET_USER_METHOD_BASE_STR = 'setUserAt';
+    public const GET_USER_METHOD_BASE_STR = 'getUserAt';
     
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -24,7 +23,6 @@ class Reservation
     #[ORM\Column(type: Types::DATE_MUTABLE, unique: true)]
     private ?\DateTimeInterface $date = null;
 
-//    #[ORM\ManyToOne(targetEntity: "User", inversedBy: "reservationsAt9")]
     #[ORM\ManyToOne(targetEntity: "User")]
     #[ORM\JoinColumn(name: "user_id_at_9", nullable: true, referencedColumnName: "id")]
     private ?User $userAt9 = null;
@@ -61,6 +59,7 @@ class Reservation
     #[ORM\JoinColumn(name: "user_id_at_17", nullable: true, referencedColumnName: "id")]
     private ?User $userAt17 = null;
 
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -131,7 +130,7 @@ class Reservation
         return $this->userAt13;
     }
 
-    public function setUserAt13(?int $userAt13): static
+    public function setUserAt13(?User $userAt13): static
     {
         $this->userAt13 = $userAt13;
 

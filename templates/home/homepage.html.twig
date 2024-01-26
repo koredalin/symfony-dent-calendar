@@ -35,19 +35,27 @@
                 <td class="calendar-hour">
                   {{ hour }} - {{ hour + 1 }}
                 </td>
-{#                {% set reservationMonthKeyString = {month}{year}, %}#}
-{#                {% set reservationMonthKey = reservations["#{month}-#{year}"] %}#}
                 {% for day in days %}
 {#                    {{ day|date('d-m-Y') }}#}
                     {% set dateKey = day|date('Y-m-d') %}
-{#                    {% set isReservation = (reservations["#{month}-#{year}"][dateKey][hour] is defined) %}#}
-                    {% set isReservation = (reservations[dateKey] is defined) and (hour in reservations[dateKey]) %}
+                    {% set isReservation = false %}
+                    {% if reservations[dateKey] is defined %}
+                        {% for resHour in reservations[dateKey] %}
+                            {% if resHour['hour'] is defined and (hour is same as(resHour['hour'])) %}
+                                {% set isReservation = true %}
+                                {% set break = true %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
                     <td>
                         {% if isReservation %}
                             <i class="fas fa-stop-circle"></i>
                         {% endif %}
                         {% if not isReservation %}
-                            <a href="#" class="fas fa-edit"></a>
+                            <a class="fas fa-edit"
+                               title="Reserve an hour at {{ dateKey }}-{{ "%02d"|format(hour) }}."
+                               href="{{ path('app_reservation_add_one', {"year": day|date('Y'), "month": day|date('m'), "day": day|date('d'), "hour": hour}) }}">
+                            </a>
                         {% endif %}
                         {% if isReservation %}
                             <div class="hours" {{ stimulus_controller('calendar-controls', {

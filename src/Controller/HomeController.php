@@ -43,21 +43,29 @@ class HomeController extends AbstractController
 
     private function getMonthlyReservationHours(int $year, int $month): array
     {
-        $reservationDates = $this->entityManager->getRepository(Reservation::class)->findByMonthAssoc($year, $month);
-        dump($reservationDates);
+        $reservations = $this->entityManager->getRepository(Reservation::class)->findByMonthAssoc($year, $month);
+        dump($reservations);
         $result = [];
-        foreach ($reservationDates as $date) {
+        foreach ($reservations as $reservation) {
             $reservationHours = [];
-            foreach ($date as $dateKey => $dateField) {
-                foreach (HomeModel::RESERVATION_HOURS as $hour) {
-                    if ($dateKey === Reservation::USER_PROPERTY_BASE_STR.$hour && $dateField !== null) {
-                        $reservationHours[] = $hour;
-                    }
+            foreach (HomeModel::RESERVATION_HOURS as $hour) {
+                $getUserAtMethodName = Reservation::GET_USER_METHOD_BASE_STR.$hour;
+                if (method_exists($reservation, $getUserAtMethodName) && $reservation->{$getUserAtMethodName}() !== null) {
+                    $userAtObj = $reservation->{$getUserAtMethodName}();
+                    $reservationHours[] = [
+                        'userAtId' => $userAtObj->getId(),
+                        'userAtName' => $userAtObj->getName(),
+                        'userAtEmail' => $userAtObj->getEmail(),
+                        'userAtPhone' => $userAtObj->getPhone(),
+                        'hour' => $hour,
+                    ];
                 }
             }
-            $reservationDate = $date['date']->format('Y-m-d');
+            
+            $reservationDate = $reservation->getDate()->format('Y-m-d');
             $result[$reservationDate] = $reservationHours;
         }
+        dump($result);
         
         return $result;
     }
