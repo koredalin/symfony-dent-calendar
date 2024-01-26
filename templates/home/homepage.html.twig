@@ -23,7 +23,8 @@
       <tr>
         <th>Hour</td>
         {% for day in days %}
-            <th>
+            {% set todayClass = day|date('Y-m-d') is same as(today|date('Y-m-d')) ? 'today' : '' %}
+            <th class="{{ todayClass }}">
               {{ day|date('d') }}.{{ day|date('m') }} - {{ day|date('D') }}
             </th>
         {% endfor %}
@@ -39,16 +40,20 @@
 {#                    {{ day|date('d-m-Y') }}#}
                     {% set dateKey = day|date('Y-m-d') %}
                     {% set isReservation = false %}
+                    {% set resHourIndex = null %}
                     {% if reservations[dateKey] is defined %}
-                        {% for resHour in reservations[dateKey] %}
+                        {% for resKey, resHour in reservations[dateKey] %}
                             {% if resHour['hour'] is defined and (hour is same as(resHour['hour'])) %}
+{#                                {{ dump(reservations[dateKey]) }}#}
+                                {% set resHourIndex = resKey %}
                                 {% set isReservation = true %}
                                 {% set break = true %}
                             {% endif %}
                         {% endfor %}
                     {% endif %}
-                    <td>
-                        {% if isReservation %}
+                    {% set todayClass = dateKey is same as(today|date('Y-m-d')) ? 'today' : '' %}
+                    <td class="{{ todayClass }}">
+                        {% if false %}
                             <i class="fas fa-stop-circle"></i>
                         {% endif %}
                         {% if not isReservation %}
@@ -58,12 +63,15 @@
                             </a>
                         {% endif %}
                         {% if isReservation %}
-                            <div class="hours" {{ stimulus_controller('calendar-controls', {
+                            <div class="reservation_info" {{ stimulus_controller('calendar-controls', {
                                 infoUrl: path('api_reservation_get_one', { id: 3 })
                             }) }}>
                                 <a href="#" {{ stimulus_action('calendar-controls', 'reserve') }}>
                                     <i class="fas fa-eye"></i>
                                 </a>
+                                <input type="hidden" id="res_name_{{ day|date('Y-m-d') }}-{{ "%02d"|format(hour) }}" value="{{ reservations[dateKey][resHourIndex]['userAtName'] }}">
+                                <input type="hidden" id="res_email_{{ day|date('Y-m-d') }}-{{ "%02d"|format(hour) }}" value="{{ reservations[dateKey][resHourIndex]['userAtEmail'] }}">
+                                <input type="hidden" id="res_phone_{{ day|date('Y-m-d') }}-{{ "%02d"|format(hour) }}" value="{{ reservations[dateKey][resHourIndex]['userAtPhone'] }}">
                             </div>
                         {% endif %}
                     </td>

@@ -37,6 +37,7 @@ class HomeController extends AbstractController
             'days' => $monthDays,
             'reservationHours' => HomeModel::RESERVATION_HOURS,
             'reservations' => $this->getMonthlyReservationHours($validatedInput['year'], $validatedInput['month']),
+            'today' => (new \DateTime())->format('Y-m-d'),
             'errorMessage' => $validatedInput['errorMessage'],
         ]);
     }
