@@ -8,14 +8,14 @@
         year: year,
         month: month,
         monthChange: 'last'
-    }) }}" class="btn btn-primary">Last month</a>
-    Shown: <strong>{{ monthName }}.{{ year }}</strong>.
+    }) }}" class="btn btn-primary">{% trans %} home.last_month {% endtrans %}</a>
+    {% trans %} home.shown {% endtrans %}: <strong>{{ monthName|trans }}.{{ year }}</strong>.
     <a type="button" href="{{ path('app_homepage', {
         year: year,
         month: month,
         monthChange: 'next'
-      }) }}"class="btn btn-success">Next month</a>
-    <a type="button" href="{{ path('app_homepage') }}" class="btn btn-secondary">Current month</a>
+      }) }}"class="btn btn-success">{% trans %} home.next_month {% endtrans %}</a>
+    <a type="button" href="{{ path('app_homepage') }}" class="btn btn-secondary">{% trans %} home.current_month {% endtrans %}</a>
 </div>
 <div id="calendar_container">
   <table id="calendar">
@@ -83,12 +83,12 @@
     <dialog class="dialog" id="modal-reservation">
       <div class="dialog__wrapper">
         <button class="dialog__close">✕</button>
-        <p>Reservation at <strong><span id="modal_res_time"></span></strong> o'clock.</p>
-        <p>Patient:</p>
+        <p>{% trans %} home.reservation_at {% endtrans %} <strong><span id="modal_res_time"></span></strong> {% trans %} home.oclock {% endtrans %}.</p>
+        <p>{% trans %} home.patient {% endtrans %}:</p>
         <ul>
-          <li>Name: <strong><span id="modal_user_name"></span></strong></li>
-          <li>Email: <strong><span id="modal_user_email"></span></strong></li>
-          <li>Phone: <strong><span id="modal_user_phone"></span></strong></li>
+          <li>{% trans %} home.name {% endtrans %}: <strong><span id="modal_user_name"></span></strong></li>
+          <li>{% trans %} home.email {% endtrans %}: <strong><span id="modal_user_email"></span></strong></li>
+          <li>{% trans %} home.phone {% endtrans %}: <strong><span id="modal_user_phone"></span></strong></li>
         </ul>
       </div>
     </dialog>
@@ -96,10 +96,10 @@
 </div>
         
 <div>
-  <h3>Legend</h3>
+  <h3>{% trans %} home.legend {% endtrans %}</h3>
   <ul>
-    <li><i class="fas fa-edit reserve"></i> - Reserve an hour.</li>
-    <li><i class="fas fa-eye read"></i> - Review a reservation.</li>
+    <li><i class="fas fa-edit reserve"></i> - {% trans %} home.reserve_an_hour {% endtrans %}.</li>
+    <li><i class="fas fa-eye read"></i> - {% trans %} home.res_review {% endtrans %}.</li>
   </ul>
 </div>
 {% endblock %}

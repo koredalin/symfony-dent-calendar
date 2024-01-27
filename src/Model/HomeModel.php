@@ -2,6 +2,8 @@
 
 namespace App\Model;
 
+use Psr\Log\LoggerInterface;
+
 /**
  * Description of HomeModel
  *
@@ -12,6 +14,10 @@ class HomeModel
     public const RESERVATION_HOURS = [9, 10, 11, 12, 13, 14, 15, 16, 17,];
     protected const START_YEAR = 2023;
     protected const END_YEAR = 2030;
+
+    public function __construct(
+        private LoggerInterface $logger
+    ) {}
 
     public function getValidatedCalendarInput(?int $year = null, ?int $month = null, string $monthChange = ''): array
     {
@@ -46,7 +52,11 @@ class HomeModel
             $month = $dt->format('m');
             $monthName = $dt->format('M');
         }
-        
+
+        if (!empty($errorMessage)) {
+            $this->logger->warning($errorMessage);
+        }
+
         return [
             'year' => $year,
             'month' => $month,

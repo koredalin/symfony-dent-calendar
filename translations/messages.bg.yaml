@@ -1,0 +1,31 @@
+Jan: Януари
+Feb: Февруари
+Mar: Март
+Apr: Април
+May: Май
+Jun: Юни
+Jul: Юли
+Aug: Август
+Sep: Септември
+Oct: Октомври
+Nov: Ноември
+Dec: Декември
+
+home:
+    title: Зъболекарски календар
+    last_month: Миналия месец
+    next_month: Следващия месец
+    current_month: Настоящия месец
+    shown: Представен месец
+    legend: Легенда
+    reserve_an_hour: Запазете час
+    res_review: Вижте резервацията
+    reservation_at: Резервация за
+    oclock: часа
+    patient: Пациент
+    name: Име
+    email: Имейл
+    phone: Телефон
+
+errors:
+    wrong_month_param: Грешни входни параметри за месеца. Преминаваме към настоящия месец.

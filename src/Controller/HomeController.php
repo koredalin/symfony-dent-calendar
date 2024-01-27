@@ -9,6 +9,7 @@ use App\Model\HomeModel;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Reservation;
 use App\Helper\DateTimeHelper;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Description of HomeController
@@ -20,7 +21,8 @@ class HomeController extends AbstractController
     public function __construct(
         private HomeModel $home,
         private DateTimeHelper $dateTime,
-        private EntityManagerInterface $entityManager
+        private EntityManagerInterface $entityManager,
+        private TranslatorInterface $translator
     ) {}
 
     #[Route('/{month<\d+>}/{year<\d+>}/{monthChange}', name: 'app_homepage', methods: ['GET'])]
@@ -30,7 +32,7 @@ class HomeController extends AbstractController
         $monthDays = $this->dateTime->getDaysInYearMonth($validatedInput['year'], $validatedInput['month']);
         
         return $this->render('home/homepage.html.twig', [
-            'title' => 'Dentist Calendar',
+            'title' => $this->translator->trans('home.title'),
             'year' => $validatedInput['year'],
             'month' => $validatedInput['month'],
             'monthName' => $validatedInput['monthName'],

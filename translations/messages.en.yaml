@@ -1,0 +1,32 @@
+jan: Jan
+Jan: Jan
+Feb: Feb
+Mar: Mar
+Apr: Apr
+May: May
+Jun: Jun
+Jul: Jul
+Aug: Aug
+Sep: Sep
+Oct: Oct
+Nov: Nov
+Dec: Dec
+
+home:
+    title: Dental Calendar
+    last_month: Last month
+    next_month: Next month
+    current_month: Current month
+    shown: Shown
+    legend: Legend
+    reserve_an_hour: Reserve an hour
+    res_review: Review a reservation
+    reservation_at: Reservation at
+    oclock: o'clock
+    patient: Patient
+    name: Name
+    email: Email
+    phone: Phone
+
+errors:
+    wrong_month_param: Wrong month parameters. Set to current month.
