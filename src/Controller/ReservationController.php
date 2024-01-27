@@ -34,13 +34,21 @@ class ReservationController extends AbstractController
     #[Route('/reservation/add_one/{year<\d+>}/{month<\d+>}/{day<\d+>}/{hour<\d+>}', name: 'app_reservation_add_one')]
     public function addOne(int $year, int $month, int $day, int $hour): Response
     {
+        $now = new \DateTime();
         $beginAt = \DateTime::createFromFormat('Y-n-d H:i:s', $year.'-'.$month.'-'.$day.' '.$hour.':00:00');
+        if ($now > $beginAt) {
+            $this->logger->warning('A reservation for previous period.');
+
+            return $this->redirectToRoute('app_homepage');
+        }
+
         $beginAtStr = $beginAt->format('Y-m-d H:i:s');
 //        $startAt = \DateTime::createFromFormat('Y-n-d H:i:s', $year.'-5-'.$day.' '.$hour.':00:00');
         // creates a task object and initializes some data for this example
         $formEntity = new ReservationForm();
         $date = new \DateTimeImmutable($beginAt->format('Y-m-d'));
-        dump($date);
+        dump($now);
+        dump($beginAt);
 
         $form = $this->createForm(ReservationType::class, $formEntity);
 
