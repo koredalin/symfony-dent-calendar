@@ -11,12 +11,21 @@ Oct: Октомври
 Nov: Ноември
 Dec: Декември
 
+Mon: Пн
+Tue: Вт
+Wed: Ср
+Thu: Чт
+Fri: Пт
+Sat: Сб
+Sun: Нд
+
 home:
     title: Зъболекарски календар
     last_month: Миналия месец
     next_month: Следващия месец
     current_month: Настоящия месец
     shown: Представен месец
+    hour: Час
     legend: Легенда
     reserve_an_hour: Запазете час
     res_review: Вижте резервацията

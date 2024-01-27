@@ -21,11 +21,11 @@
   <table id="calendar">
     <thead>
       <tr>
-        <th>Hour</td>
+        <th>{% trans %} home.hour {% endtrans %}</td>
         {% for day in days %}
             {% set todayClass = day|date('Y-m-d') is same as(now|date('Y-m-d')) ? 'today' : '' %}
             <th class="{{ todayClass }}">
-              {{ day|date('d') }}.{{ day|date('m') }} - {{ day|date('D') }}
+              {{ day|date('d') }}.{{ day|date('m') }} - {{ day|date('D')|trans }}
             </th>
         {% endfor %}
       </tr>

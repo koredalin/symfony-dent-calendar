@@ -12,12 +12,21 @@ Oct: Oct
 Nov: Nov
 Dec: Dec
 
+Mon: Mon
+Tue: Tue
+Wed: Wed
+Thu: Thu
+Fri: Fri
+Sat: Sat
+Sun: Sun
+
 home:
     title: Dental Calendar
     last_month: Last month
     next_month: Next month
     current_month: Current month
     shown: Shown
+    hour: Hour
     legend: Legend
     reserve_an_hour: Reserve an hour
     res_review: Review a reservation
