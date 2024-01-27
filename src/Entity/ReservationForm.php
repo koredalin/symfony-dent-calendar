@@ -4,8 +4,6 @@ namespace App\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Email;
-use Symfony\Component\Validator\Constraints\DateTime;
-use DateTimeInterface;
 
 /**
  * Description of ReservationForm

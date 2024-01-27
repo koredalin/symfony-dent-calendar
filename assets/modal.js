@@ -1,3 +1,5 @@
+// Modal window code source: "https://codepen.io/ind88/pen/JjZLxVN".
+
 // Get all links that start with #modal
 const modalLinks = document.querySelectorAll('a[id^="res_info_link_"]');
 
