@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use Psr\Log\LoggerInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 
 /**
  * Description of HomeModel
@@ -11,11 +12,8 @@ use Psr\Log\LoggerInterface;
  */
 class HomeModel
 {
-    public const RESERVATION_HOURS = [9, 10, 11, 12, 13, 14, 15, 16, 17,];
-    protected const START_YEAR = 2023;
-    protected const END_YEAR = 2030;
-
     public function __construct(
+        private ContainerBagInterface $params,
         private LoggerInterface $logger
     ) {}
 
@@ -24,8 +22,8 @@ class HomeModel
         $errorMessage = '';
         $monthChanges = ['last', 'next',];
         if (
-            $year < self::START_YEAR
-            || $year > self::END_YEAR
+            $year < $this->params->get('start_year')
+            || $year > $this->params->get('end_year')
             || $month < 1
             || $month > 12
             || !in_array($monthChange, $monthChanges, true)

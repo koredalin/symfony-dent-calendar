@@ -11,8 +11,10 @@ use DateTime;
  */
 class DateTimeHelper
 {
-    protected const SKIP_WEEK_DAYS = ['Sat', 'Sun',];
-
+    public function __construct(
+        private array $nonWorkingWeekDays
+    ) {}
+    
     public function getDaysInYearMonth(?int $year, ?int $month): array
     {
         if (empty($year) || empty($month)) {
@@ -25,7 +27,7 @@ class DateTimeHelper
         $datesArray = array();
         for($i=1; $i<=$date->format("t"); $i++){
             $weekDay = DateTime::createFromFormat("Y-n-d", "$year-$month-$i")->format('D');
-            if (in_array($weekDay, self::SKIP_WEEK_DAYS, true)) {
+            if (in_array($weekDay, $this->nonWorkingWeekDays, true)) {
                 continue;
             }
 

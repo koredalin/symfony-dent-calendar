@@ -37,7 +37,7 @@ class HomeController extends AbstractController
             'month' => $validatedInput['month'],
             'monthName' => $validatedInput['monthName'],
             'days' => $monthDays,
-            'reservationHours' => HomeModel::RESERVATION_HOURS,
+            'reservationHours' => $this->getParameter('reservation_hours'),
             'reservations' => $this->getMonthlyReservationHours($validatedInput['year'], $validatedInput['month']),
             'now' => (new \DateTime())->format('Y-m-d H:i:s'),
             'errorMessage' => $validatedInput['errorMessage'],
@@ -50,7 +50,7 @@ class HomeController extends AbstractController
         $result = [];
         foreach ($reservations as $reservation) {
             $reservationHours = [];
-            foreach (HomeModel::RESERVATION_HOURS as $hour) {
+            foreach ($this->getParameter('reservation_hours') as $hour) {
                 $getUserAtMethodName = Reservation::GET_USER_METHOD_BASE_STR.$hour;
                 if (method_exists($reservation, $getUserAtMethodName) && $reservation->{$getUserAtMethodName}() !== null) {
                     $userAtObj = $reservation->{$getUserAtMethodName}();
