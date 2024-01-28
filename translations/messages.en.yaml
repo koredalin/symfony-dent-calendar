@@ -43,3 +43,4 @@ reservation:
 
 errors:
     wrong_month_param: Wrong month parameters. Set to current month.
+    previous_period_reservation: A reservation for previous period.

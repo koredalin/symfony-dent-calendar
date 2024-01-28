@@ -35,7 +35,9 @@ class ReservationController extends AbstractController
         $beginAt = \DateTime::createFromFormat('Y-n-d H:i:s', $year.'-'.$month.'-'.$day.' '.$hour.':00:00');
         $now = new \DateTime();
         if ($beginAt < $now) {
-            $this->logger->warning('A reservation for previous period.');
+            $errorMessage = $this->translator->trans('errors.previous_period_reservation');
+            $this->logger->warning($errorMessage);
+            $this->addFlash('errorMessage', $errorMessage);
 
             return $this->redirectToRoute('app_homepage');
         }

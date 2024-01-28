@@ -42,3 +42,4 @@ reservation:
 
 errors:
     wrong_month_param: Грешни входни параметри за месеца. Преминаваме към настоящия месец.
+    previous_period_reservation: Резервация за предишен период.

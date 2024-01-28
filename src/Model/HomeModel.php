@@ -19,35 +19,43 @@ class HomeModel
 
     public function getValidatedCalendarInput(?int $year = null, ?int $month = null, string $monthChange = ''): array
     {
+        if (is_null($year)) {
+            $year = (int) date('Y');
+        }
+
+        if (is_null($month)) {
+            $month = (int) date('m');
+        }
+
         $errorMessage = '';
-        $monthChanges = ['last', 'next',];
+        $monthChanges = ['', 'last', 'next',];
         if (
-            $year < $this->params->get('start_year')
-            || $year > $this->params->get('end_year')
+            $year < (int) $this->params->get('start_year')
+            || $year > (int) $this->params->get('end_year')
             || $month < 1
             || $month > 12
             || !in_array($monthChange, $monthChanges, true)
         ) {
-            $year = date('Y');
-            $month = date('m');
+            $year = (int) date('Y');
+            $month = (int) date('m');
             $monthChange = '';
-            $errorMessage = 'Wrong month parameters. Set to current month.';
+            $errorMessage = 'errors.wrong_month_param';
         }
 
         $monthName = date_create($year.'-'.$month.'-01')->format('M');
         if ($monthChange === 'last') {
             $datestring=$year.'-'.$month.'-01 first day of last month';
             $dt=date_create($datestring);
-            $year = $dt->format('Y');
-            $month = $dt->format('m');
+            $year = (int) $dt->format('Y');
+            $month = (int) $dt->format('m');
             $monthName = $dt->format('M');
         }
 
         if ($monthChange === 'next') {
             $datestring=$year.'-'.$month.'-01 first day of next month';
             $dt=date_create($datestring);
-            $year = $dt->format('Y');
-            $month = $dt->format('m');
+            $year = (int) $dt->format('Y');
+            $month = (int) $dt->format('m');
             $monthName = $dt->format('M');
         }
 

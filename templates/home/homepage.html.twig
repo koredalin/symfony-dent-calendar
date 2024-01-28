@@ -17,6 +17,12 @@
     <a type="button" href="{{ path('app_homepage') }}" class="btn btn-secondary">{% trans %} home.current_month {% endtrans %}</a>
 </div>
 
+<div id="calendar_error" class="calendar-error">
+    {% for error in app.flashes('errorMessage') %}
+        <p><strong>{{ error }}</strong></p>
+    {% endfor %}
+</div>
+
 <div id="calendar_container">
   <table id="calendar" data-controller="mouse-highlight">
     <thead>

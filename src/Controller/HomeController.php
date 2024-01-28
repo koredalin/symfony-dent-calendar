@@ -29,6 +29,12 @@ class HomeController extends AbstractController
     public function index(?int $year = null, ?int $month = null, string $monthChange = ''): Response
     {
         $validatedInput = $this->home->getValidatedCalendarInput($year , $month, $monthChange);
+        if ($validatedInput['errorMessage']) {
+            $this->addFlash('errorMessage', $this->translator->trans($validatedInput['errorMessage']));
+
+            return $this->redirectToRoute('app_homepage');
+        }
+
         $monthDays = $this->dateTime->getDaysInYearMonth($validatedInput['year'], $validatedInput['month']);
         
         return $this->render('home/homepage.html.twig', [
