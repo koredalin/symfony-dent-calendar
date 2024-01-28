@@ -12,6 +12,7 @@ This project is a web application for a dental appointment calendar, allowing us
 - "symfony/form"
 - ORM Doctrine with migrations
 - Translations
+- Unit and Integration tests
 - "@symfony/stimulus-bridge"
 - "@symfony/webpack-encore"
 
