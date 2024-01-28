@@ -96,3 +96,9 @@ td {
   --webkit-appearance:none;
   appearance:none;
 }
+
+/*** Reservation ***/
+
+.success {
+    font-size: 1.2em;
+}

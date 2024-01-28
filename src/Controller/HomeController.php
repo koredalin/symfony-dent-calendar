@@ -46,8 +46,7 @@ class HomeController extends AbstractController
 
     private function getMonthlyReservationHours(int $year, int $month): array
     {
-        $reservations = $this->entityManager->getRepository(Reservation::class)->findByMonthAssoc($year, $month);
-        dump($reservations);
+        $reservations = $this->entityManager->getRepository(Reservation::class)->findByMonth($year, $month);
         $result = [];
         foreach ($reservations as $reservation) {
             $reservationHours = [];
@@ -68,7 +67,6 @@ class HomeController extends AbstractController
             $reservationDate = $reservation->getDate()->format('Y-m-d');
             $result[$reservationDate] = $reservationHours;
         }
-        dump($result);
         
         return $result;
     }

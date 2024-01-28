@@ -3,14 +3,17 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block body %}
+
 <h1>{{ title }} ✅</h1>
 
-<div class="form-container">
-  <p>Your reservation begins at: {{ date|date('Y-m-d H:i:s') }}.</p>
-  <p>Your input data:</p>
-  <p>Name: {{ user.name }}.</p>
-  <p>Email: {{ user.email }}.</p>
-  <p>Phone number: {{ user.phone }}.</p>
-  <p><a type="button" href="{{ asset('') }}">Go back to Calendar</a></p>
+<div class="success">
+    <h4>{% trans %}reservation.begins_at{% endtrans %}: {{ date|date('Y-m-d H:i:s') }}.</h4>
+    <p>Your input data:</p>
+    <p>Name: <strong>{{ user.name }}</strong>.</p>
+    <p>Email: <strong>{{ user.email }}</strong>.</p>
+    <p>Phone number: <strong>{{ user.phone }}</strong>.</p>
 </div>
+
+<p><a type="button" href="{{ asset('') }}" class="btn btn-primary success">Go back to Calendar</a></p>
+
 {% endblock %}

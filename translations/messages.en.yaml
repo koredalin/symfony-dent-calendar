@@ -37,5 +37,9 @@ home:
     email: Email
     phone: Phone
 
+reservation:
+    reserved: Reserved
+    begins_at: Your reservation begins at
+
 errors:
     wrong_month_param: Wrong month parameters. Set to current month.
