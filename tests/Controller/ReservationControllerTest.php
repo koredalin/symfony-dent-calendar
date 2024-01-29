@@ -12,6 +12,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+use Symfony\Component\HttpFoundation\Session\FlashBagAwareSessionInterface;
 
 /**
  * Description of ReservationControllerTest
@@ -22,9 +24,18 @@ class ReservationControllerTest extends WebTestCase
 {
     public function testAddOneWithPastDate()
     {
+        $sessionFlashBag = $this->createMock(FlashBagInterface::class);
+        $sessionFlashBag->method('add')->with('errorMessage', '');
+
+        $session = $this->createMock(FlashBagAwareSessionInterface::class);
+        $session->method('getFlashBag')
+            ->willReturn($sessionFlashBag);
+
         $requestStack = $this->createMock(RequestStack::class);
         $requestStack->method('getMainRequest')
             ->willReturn(new Request());
+        $requestStack->method('getSession')
+            ->willReturn($session);
 
         $router = $this->createMock(RouterInterface::class);
         $router->method('generate')
@@ -32,12 +43,11 @@ class ReservationControllerTest extends WebTestCase
 
         $container = new Container();
         $container->set('router', $router);
-        
+        $container->set('request_stack', $requestStack);
 
         $logger = $this->createMock(LoggerInterface::class);
         $logger->expects($this->once())
             ->method('warning');
-//            ->with($this->equalTo('A reservation for previous period.'));
 
         $entityManager = $this->createMock(EntityManagerInterface::class);
         $translator = $this->createMock(TranslatorInterface::class);
